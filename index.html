@@ -88,7 +88,7 @@ footer{text-align:center;padding:2rem;color:#444;font-size:0.75rem;letter-spacin
     <li><a href="#precios">Precios</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
-  <button class="nav-cta">Cotizar gratis</button>
+  <button class="nav-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Cotizar gratis</button>
 </nav>
 
 <section class="hero">
@@ -142,7 +142,7 @@ footer{text-align:center;padding:2rem;color:#444;font-size:0.75rem;letter-spacin
   <div class="pricing-grid">
     <div class="pricing-card">
       <div class="pricing-name">Básico</div>
-      <div class="pricing-price">$995 <span>/mes</span></div>
+      <div class="pricing-price">$1,500 <span>/mes</span></div>
       <div class="pricing-desc">Para negocios que quieren empezar a crecer en redes.</div>
       <ul class="pricing-features">
         <li>Manejo de Instagram</li>
@@ -193,11 +193,11 @@ footer{text-align:center;padding:2rem;color:#444;font-size:0.75rem;letter-spacin
       <div class="contact-detail"><span>📸</span><span>@kodexagency</span></div>
     </div>
     <div class="contact-form">
-      <input type="text" placeholder="Nombre de tu negocio" />
-      <input type="text" placeholder="Tu WhatsApp" />
-      <input type="text" placeholder="¿Qué servicio te interesa?" />
-      <textarea placeholder="Cuéntanos sobre tu negocio..."></textarea>
-      <button class="btn btn-primary">Quiero una cotización →</button>
+      <input type="text" id="negocio" placeholder="Nombre de tu negocio" />
+      <input type="text" id="telefono" placeholder="Tu WhatsApp" />
+      <input type="text" id="servicio" placeholder="¿Qué servicio te interesa?" />
+      <textarea id="mensaje" placeholder="Cuéntanos sobre tu negocio..."></textarea>
+      <button class="btn btn-primary" onclick="enviarWhatsApp()">Quiero una cotización →</button>
     </div>
   </div>
 </div>
@@ -205,6 +205,31 @@ footer{text-align:center;padding:2rem;color:#444;font-size:0.75rem;letter-spacin
 <footer>
   © 2024 Kodex Agency · Querétaro, México · Diseño web · Redes sociales · Publicidad digital
 </footer>
+
+<script>
+function enviarWhatsApp() {
+  const negocio  = document.getElementById('negocio').value.trim();
+  const telefono = document.getElementById('telefono').value.trim();
+  const servicio = document.getElementById('servicio').value.trim();
+  const mensaje  = document.getElementById('mensaje').value.trim();
+
+  if (!negocio || !telefono) {
+    alert('Por favor llena al menos el nombre de tu negocio y tu WhatsApp 😊');
+    return;
+  }
+
+  const texto =
+    `¡Hola Kodex Agency! 👋\n\n` +
+    `*Negocio:* ${negocio}\n` +
+    `*Mi WhatsApp:* ${telefono}\n` +
+    `*Servicio de interés:* ${servicio || 'No especificado'}\n` +
+    `*Mensaje:* ${mensaje || 'Sin mensaje adicional'}\n\n` +
+    `Me gustaría recibir una cotización sin compromiso.`;
+
+  const url = `https://wa.me/524423735130?text=${encodeURIComponent(texto)}`;
+  window.open(url, '_blank');
+}
+</script>
 
 </body>
 </html>
